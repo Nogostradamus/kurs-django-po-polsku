@@ -23,7 +23,6 @@ def wszystkie_filmy(request):
 def nowy_film(request):
     form_film = FilmForm(request.POST or None, request.FILES or None)
     form_dodatkowe = DodatkoweInfoForm(request.POST or None)
-    form_ocena = OcenaForm(None)
 
     if all((form_film.is_valid(), form_dodatkowe.is_valid())):
         film = form_film.save(commit=False)
