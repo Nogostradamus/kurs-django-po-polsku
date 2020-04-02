@@ -1,0 +1,6 @@
+*.idea
+*.sqlite3
+*pyc
+.env
+moje_media
+venv

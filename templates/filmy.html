@@ -1,0 +1,45 @@
+{% extends 'glowny.html' %}
+
+{% block tytul %} List filmów {% endblock %}
+
+{% block strona %}
+    <div class="jumbotron">
+        {% if user.is_authenticated %}
+        <h1 class="display-4"> Witaj {{ user.username }}</h1>
+        <a href="{% url 'logout' %}" class="btn btn-success">Logout <i class="fas fa-sign-out-alt"></i></a>
+    {% else %}
+        <a href="{% url 'login' %}" class="btn btn-success">Login <i class="fas fa-sign-in-alt"></i></a>
+    {% endif %}
+    </div>
+
+    <a href="{% url 'nowy_film' %}">Nowy film <i class="fas fa-plus-circle"></i></a>
+
+    {% if filmy|length == 0 %}
+        <h2>Brak filmów</h2>
+    {% else %}
+        <!--<h2>Ilość filmów w BD: {{ filmy|length }}</h2>-->
+
+        {% for film in filmy %}
+            <div class="card">
+              <div class="card-body">
+                  <img src="/media/{{film.plakat}}" class="film-plakat">
+                  <div class="row">
+                      <div class="col-9">
+                        <h5 class="card-title">{{ film }}</h5>
+                    </div>
+                    <div class="col-3">
+                        <a href="{% url 'edytuj_film' film.id %}"><i class="fas fa-2x fa-edit film-icon"></i></a>
+                        <a href="{% url 'usun_film' film.id %}"><i class="fas fa-2x fa-trash-alt film-icon"></i></a>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <p class="card-text opis">{{ film.opis }}</p>
+                  </div>
+
+
+
+              </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
